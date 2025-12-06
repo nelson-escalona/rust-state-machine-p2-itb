@@ -88,14 +88,21 @@ fn main() {
 
 	runtime.balances.set_balance(&alice, 100);
 
-	runtime.system.inc_block_number();
-	assert_eq!(runtime.system.block_number(), 1);
+	let block_1 = types::Block {
+		header: support::Header { block_number: 1 },
+		extrinsics: vec![
+			support::Extrinsic {
+				caller: alice.clone(),
+				call: RuntimeCall::BalancesTransfer { to: bob, amount: 30 },
+			},
+			support::Extrinsic {
+				caller: alice,
+				call: RuntimeCall::BalancesTransfer { to: charlie, amount: 20 },
+			},
+		],
+	};
 
-	runtime.system.inc_nonce(&alice);
-	let _res = runtime.balances.transfer(alice.clone(), bob, 30).map_err(|e| eprintln!("{e}"));
-
-	runtime.system.inc_nonce(&alice);
-	let _res = runtime.balances.transfer(alice, charlie, 20).map_err(|e| eprintln!("{e}"));
+	runtime.execute_block(block_1).expect("invalid block");
 
 	println!("{runtime:#?}");
 }
