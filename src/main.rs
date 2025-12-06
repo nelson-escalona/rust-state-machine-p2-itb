@@ -16,7 +16,7 @@ pub struct Runtime {
 }
 
 impl system::Config for Runtime {
-	type AccountID = types::AccountId;
+	type AccountId = types::AccountId;
 	type BlockNumber = types::BlockNumber;
 	type Nonce = types::Nonce;
 }

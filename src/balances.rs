@@ -7,7 +7,7 @@ pub trait Config: crate::system::Config {
 
 #[derive(Debug)]
 pub struct Pallet<T: Config> {
-	balances: BTreeMap<T::AccountID, T::Balance>,
+	balances: BTreeMap<T::AccountId, T::Balance>,
 }
 
 impl<T: Config> Pallet<T> {
@@ -15,18 +15,18 @@ impl<T: Config> Pallet<T> {
 		Self { balances: BTreeMap::new() }
 	}
 
-	pub fn set_balance(&mut self, who: &T::AccountID, amount: T::Balance) {
+	pub fn set_balance(&mut self, who: &T::AccountId, amount: T::Balance) {
 		self.balances.insert(who.clone(), amount);
 	}
 
-	pub fn balance(&self, who: &T::AccountID) -> T::Balance {
+	pub fn balance(&self, who: &T::AccountId) -> T::Balance {
 		*self.balances.get(who).unwrap_or(&T::Balance::zero())
 	}
 
 	pub fn transfer(
 		&mut self,
-		caller: T::AccountID,
-		to: T::AccountID,
+		caller: T::AccountId,
+		to: T::AccountId,
 		amount: T::Balance,
 	) -> crate::support::DispatchResult {
 		let caller_balance = self.balance(&caller);
@@ -46,7 +46,7 @@ impl<T: Config> Pallet<T> {
 mod tests {
 	struct TestConfig;
 	impl crate::system::Config for TestConfig {
-		type AccountID = String;
+		type AccountId = String;
 		type BlockNumber = u32;
 		type Nonce = u32;
 	}
