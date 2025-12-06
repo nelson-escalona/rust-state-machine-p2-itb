@@ -25,10 +25,10 @@ fn main() {
 	assert_eq!(runtime.system.block_number(), 1);
 
 	runtime.system.inc_nonce(&alice);
-    let _res = runtime.balances.transfer(alice.clone(), bob, 30).map_err(|e| eprintln!("{e}"));
+	let _res = runtime.balances.transfer(alice.clone(), bob, 30).map_err(|e| eprintln!("{e}"));
 
 	runtime.system.inc_nonce(&alice);
-    let _res = runtime.balances.transfer(alice, charlie, 20).map_err(|e| eprintln!("{e}"));
+	let _res = runtime.balances.transfer(alice, charlie, 20).map_err(|e| eprintln!("{e}"));
 
 	println!("{runtime:#?}");
 }
