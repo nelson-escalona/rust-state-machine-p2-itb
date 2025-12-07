@@ -1,5 +1,5 @@
 use core::fmt::Debug;
-use std::{collections::BTreeMap, env::consts::ARCH, mem::Discriminant};
+use std::collections::BTreeMap;
 
 use crate::support::DispatchResult;
 
