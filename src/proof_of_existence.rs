@@ -23,7 +23,7 @@ impl<T: Config> Pallet<T> {
 }
 
 #[macros::call]
-impl<T:Config> Pallet<T>{
+impl<T: Config> Pallet<T> {
 	pub fn create_claim(&mut self, caller: T::AccountId, claim: T::Content) -> DispatchResult {
 		if self.claims.contains_key(&claim) {
 			return Err("this content is already claimed");
